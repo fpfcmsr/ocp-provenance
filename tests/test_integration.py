@@ -92,6 +92,50 @@ class TestProvenanceBasic:
         assert loc.lineno > 0
         assert loc.function is not None
 
+    def test_edge_provenance(self):
+        from build123d import Box, BuildPart
+
+        with provenance() as journal:
+            with BuildPart() as part:
+                Box(10, 10, 10)
+
+        result = part.part
+        edges = result.edges()
+        assert len(edges) == 12
+
+        tracked = sum(1 for e in edges if get_provenance(journal, e))
+        assert tracked == 12, f"Only {tracked}/12 edges have provenance"
+
+    def test_vertex_provenance(self):
+        from build123d import Box, BuildPart
+
+        with provenance() as journal:
+            with BuildPart() as part:
+                Box(10, 10, 10)
+
+        result = part.part
+        vertices = result.vertices()
+        assert len(vertices) == 8
+
+        tracked = sum(1 for v in vertices if get_provenance(journal, v))
+        assert tracked == 8, f"Only {tracked}/8 vertices have provenance"
+
+    def test_edge_provenance_through_fillet(self):
+        from build123d import Box, BuildPart, fillet
+
+        with provenance() as journal:
+            with BuildPart() as part:
+                Box(10, 10, 10)
+                fillet(part.edges(), 1)
+
+        result = part.part
+        edges = result.edges()
+
+        tracked = sum(1 for e in edges if get_provenance(journal, e))
+        assert tracked == len(edges), (
+            f"Only {tracked}/{len(edges)} edges have provenance after fillet"
+        )
+
     def test_registry_clear(self):
         from build123d import Box, BuildPart
 

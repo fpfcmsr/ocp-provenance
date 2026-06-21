@@ -14,7 +14,12 @@ from .framewalker import find_user_frame
 from .history import trace_boolean, trace_boolean_split, trace_maker, trace_maker_split
 from .registry import ProvenanceRegistry
 
-_TRACKED_TYPES = (ta.TopAbs_ShapeEnum.TopAbs_FACE,)
+_TRACKED_TYPES = (
+    ta.TopAbs_ShapeEnum.TopAbs_VERTEX,
+    ta.TopAbs_ShapeEnum.TopAbs_EDGE,
+    ta.TopAbs_ShapeEnum.TopAbs_FACE,
+    ta.TopAbs_ShapeEnum.TopAbs_SOLID,
+)
 
 
 def _iter_subshapes(
@@ -157,12 +162,13 @@ class ProvenanceJournal:
         if hasattr(mode, "name") and mode.name == "REPLACE":
             return
 
-        from build123d.topology import Face
+        from build123d.topology import Edge, Face, Solid, Vertex
 
-        for shape in lasts.get(Face, []):
-            wrapped = getattr(shape, "wrapped", None)
-            if wrapped is not None:
-                self.registry.assign(hash(wrapped), loc)
+        for cls in (Vertex, Edge, Face, Solid):
+            for shape in lasts.get(cls, []):
+                wrapped = getattr(shape, "wrapped", None)
+                if wrapped is not None:
+                    self.registry.assign(hash(wrapped), loc)
 
     def _handle_maker_op(
         self,
