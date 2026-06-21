@@ -1128,7 +1128,7 @@ wheels = [
 [[package]]
 name = "ocp-vscode"
 version = "3.4.0"
-source = { git = "https://github.com/fpfcmsr/vscode-ocp-cad-viewer?branch=provenance-hooks#3e5024ae4696c8a2130ba23b9eff0bde75b82a41" }
+source = { git = "https://github.com/fpfcmsr/vscode-ocp-cad-viewer?branch=provenance-hooks#f130134215b2731df8403d8e54c409ca01ac8c23" }
 dependencies = [
     { name = "click" },
     { name = "flask" },
