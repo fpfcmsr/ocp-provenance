@@ -5,6 +5,7 @@ that created or modified it.
 """
 
 from ._types import SourceLocation
+from .bridge import build_provenance_map, build_provenance_maps
 from .journal import ProvenanceJournal
 from .registry import ProvenanceRegistry
 
@@ -39,6 +40,8 @@ __all__ = [
     "SourceLocation",
     "ProvenanceJournal",
     "ProvenanceRegistry",
+    "build_provenance_map",
+    "build_provenance_maps",
     "provenance",
     "get_provenance",
 ]
