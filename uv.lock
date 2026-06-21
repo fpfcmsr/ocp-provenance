@@ -45,8 +45,8 @@ wheels = [
 
 [[package]]
 name = "build123d"
-version = "0.10.1.dev446+ga5983abbb"
-source = { git = "https://github.com/fpfcmsr/build123d?branch=provenance-hooks#a5983abbb913efd62d580a8721472bf69fdb7a47" }
+version = "0.10.1.dev448+g5049508e6"
+source = { git = "https://github.com/fpfcmsr/build123d?branch=provenance-hooks#5049508e62c73e1cd5bfdbe25dca1d4707b6cd8e" }
 dependencies = [
     { name = "anytree" },
     { name = "cadquery-ocp-novtk" },
