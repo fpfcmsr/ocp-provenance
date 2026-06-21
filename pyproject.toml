@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ocp-provenance"
+version = "0.1.0"
+description = "maps build123d faces/edges back to Python source lines"
+requires-python = ">=3.10"
+license = "MPL-2.0"
+dependencies = [
+    "build123d",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.uv.sources]
+build123d = { git = "https://github.com/fpfcmsr/build123d", branch = "provenance-hooks" }
+ocp-vscode = { git = "https://github.com/fpfcmsr/vscode-ocp-cad-viewer", branch = "provenance-hooks" }
+
+[dependency-groups]
+dev = [
+    "ocp-vscode>=3.4.0",
+    "pytest>=9.1.1",
+]
