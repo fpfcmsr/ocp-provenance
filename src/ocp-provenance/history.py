@@ -5,11 +5,16 @@ from OCP.TopTools import TopTools_ListOfShape
 
 
 def _toptools_list_to_list(tl: TopTools_ListOfShape) -> list[TopoDS_Shape]:
-    """Convert a TopTools_ListOfShape to a Python list."""
-    result = []
-    for shape in tl:
-        result.append(shape)
-    return result
+    """Convert a TopTools_ListOfShape to a Python list.
+
+    Uses IsEmpty/First to avoid pybind11 iterator overhead (~180µs)
+    for the common 0- and 1-element cases.
+    """
+    if tl.IsEmpty():
+        return []
+    if tl.Size() == 1:
+        return [tl.First()]
+    return [s for s in tl]
 
 
 def trace_boolean(
