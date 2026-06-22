@@ -18,6 +18,6 @@ How to test:
 
 - clone this repository and run uv sync
 - clone https://github.com/fpfcmsr/vscode-ocp-cad-viewer, checkout to the provenance-hooks branch, run "npm install" and "npm run compile"
-- run vscode with the compiled extension: code code --extensionDevelopmentPath=/someplace/full/path/vscode-ocp-cad-viewer/
+- run vscode with the compiled extension: code --extensionDevelopmentPath=/someplace/full/path/vscode-ocp-cad-viewer/
 - open /someplace/ocp-provenance
 - run the examples
