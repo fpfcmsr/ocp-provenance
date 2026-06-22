@@ -47,11 +47,11 @@ from build123d import (
     thicken,
 )
 from ocp_provenance import provenance
-from ocp_vscode import show
+from ocp_vscode import show_all
 
 SPACING = 25
 
-with provenance():
+with provenance() as journal:
     # ===================================================================
     # Row 1: Primitives (Y=0)
     # ===================================================================
@@ -202,7 +202,7 @@ with provenance():
         fillet(offset_fillet.edges().filter_by(Axis.Z), 0.5)
 
     with BuildPart(Location((3 * SPACING, 5 * SPACING, 0))) as split_chamfer:
-        Cylinder(6, 12)
+        Box(12, 12, 12)
         split(bisect_by=Plane.XZ, keep=Keep.TOP)
         chamfer(split_chamfer.edges().filter_by(Axis.Z), 1)
 
@@ -320,109 +320,4 @@ with provenance():
     # show() — viewer picks up provenance automatically
     # ===================================================================
 
-    show(
-        # Row 1: Primitives
-        box,
-        cyl,
-        sph,
-        cone,
-        torus,
-        wedge,
-        # Row 2: Modifiers
-        box_fillet,
-        box_chamfer,
-        box_draft,
-        cyl_fillet,
-        # Row 3: Booleans
-        bool_sub,
-        bool_int,
-        bool_add,
-        bool_multi,
-        # Row 4: Sketch → 3D
-        ext_rect,
-        ext_hex,
-        rev,
-        lofted,
-        swept,
-        thick,
-        # Row 5: Offset / split / scale / mirror
-        box_offset,
-        box_split,
-        box_scale,
-        box_mirror,
-        box_scale_nu,
-        # Row 6: 3D combinations
-        sub_fillet,
-        ext_fillet,
-        offset_fillet,
-        split_chamfer,
-        scale_sub,
-        mirror_fillet,
-        sketch_mirror,
-        # Row 7: Standalone sketches
-        sk_rect,
-        sk_circle,
-        sk_hex,
-        sk_bool,
-        sk_mirror,
-        sk_multi_hole,
-        sk_polyline,
-        # Row 8: Sketch combinations
-        sk_add,
-        sk_intersect,
-        sk_nested,
-        sk_multi_bool,
-        names=[
-            # Row 1
-            "Box",
-            "Cylinder",
-            "Sphere",
-            "Cone",
-            "Torus",
-            "Wedge",
-            # Row 2
-            "Box+fillet",
-            "Box+chamfer",
-            "Box+draft",
-            "Cyl+fillet",
-            # Row 3
-            "Box-Cyl",
-            "Box∩Sphere",
-            "Box+Cyl",
-            "Box-Cyl-Sphere",
-            # Row 4
-            "extrude(Rect)",
-            "extrude(Hex)",
-            "revolve",
-            "loft",
-            "sweep",
-            "thicken",
-            # Row 5
-            "offset",
-            "split",
-            "scale",
-            "mirror",
-            "scale(non-uniform)",
-            # Row 6
-            "sub+fillet",
-            "extrude+fillet",
-            "offset+fillet",
-            "split+chamfer",
-            "scale+subtract",
-            "mirror+fillet",
-            "sketch(mirror)+extrude",
-            # Row 7
-            "sk:Rect",
-            "sk:Circle",
-            "sk:Hex",
-            "sk:Rect-Circle",
-            "sk:mirror",
-            "sk:multi-hole",
-            "sk:Polyline",
-            # Row 8
-            "sk:Rect+Rect",
-            "sk:Rect∩Circle",
-            "sk:nested-rings",
-            "sk:multi-bool",
-        ],
-    )
+    show_all()
